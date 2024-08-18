@@ -1,0 +1,1 @@
+Frax a piece of software to make your life easier on the terminal and convert fractional numbers into inches, milliliters and centimeter, just type it and type values and units listed. Starting from the value of 1in = 2.54cm and 1cm = 10mm.   
