@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+from fractions import Fraction
+
+def convert_units(value, from_unit, to_unit):
+    # Conversion factors
+    inches_to_cm = 2.54
+    cm_to_mm = 10.0
+    
+    # Using the Rule of Three to convert between units
+    if from_unit == "in" and to_unit == "cm":
+        return value * inches_to_cm
+    
+    elif from_unit == "cm" and to_unit == "in":
+        return value / inches_to_cm
+    
+    elif from_unit == "in" and to_unit == "mm":
+        # 1 inch = 2.54 cm, and 1 cm = 10 mm
+        return value * inches_to_cm * cm_to_mm
+    
+    elif from_unit == "mm" and to_unit == "in":
+        return value / (inches_to_cm * cm_to_mm)
+    
+    elif from_unit == "cm" and to_unit == "mm":
+        return value * cm_to_mm
+    
+    elif from_unit == "mm" and to_unit == "cm":
+        return value / cm_to_mm
+    
+    else:
+        return "Invalid unit combination. Please use 'in', 'cm', or 'mm'."
+
+def parse_mixed_fraction(input_str):
+    try:
+        # Split input into whole part and fractional part
+        if ' ' in input_str:
+            whole_part, fraction_part = input_str.split(' ', 1)
+            whole_part = int(whole_part)
+        else:
+            whole_part = 0
+            fraction_part = input_str
+
+        # Convert fractional part to a Fraction and add to whole part
+        fraction = Fraction(fraction_part)
+        return float(whole_part) + float(fraction)
+    except ValueError:
+        return None
+
+def main():
+    # Prompt user for input
+    user_input = input("Enter the value to convert (e.g., '3 3/4', '1/2', '0.75'): ")
+    value = parse_mixed_fraction(user_input)
+    
+    if value is None:
+        print("Invalid input. Please enter a valid number or fraction.")
+        return
+    
+    from_unit = input("Enter the unit to convert from (in, cm, mm): ").strip().lower()
+    to_unit = input("Enter the unit to convert to (in, cm, mm): ").strip().lower()
+    
+    # Perform the conversion
+    result = convert_units(value, from_unit, to_unit)
+    
+    # Display the result
+    print(f"{value} {from_unit} is equal to {result} {to_unit}")
+
+# Run the script
+if __name__ == "__main__":
+    main()
